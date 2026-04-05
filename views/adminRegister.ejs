@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link href="/scss/input.scss" rel="stylesheet">
+    <link rel="stylesheet" href="/css/input.css">
+</head>
+<body>
+  <div class="container">
+    <header class="signup-header-container">
+      <a href="#" class="signup-nav">
+        <img src="" alt="">
+        <span>EdiMars</span>
+      </a>
+
+      <div class="header-navbar">
+        <a href="#">Sign Out</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="">
+        <strong class="">Sign In Admin</strong>
+      </div>
+      
+      <form action="/api/v2/admin/register" class="form-cont" method="post" enctype="multipart/form-data">
+
+          <div class="profile-pix">
+              <input type="file" name="image" id="profileImage">
+          </div>
+
+          <div class="form-container">
+
+              <div class="signup-contents">
+                <input type="text" name="name" placeholder="Enter your name" required>
+                <input type="text" name="username" placeholder="Enter your username" required>
+              </div>
+              <div class="signup-contents">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="number" name="mobile" placeholder="Enter your mobile number" required>
+              </div>
+              <div class="signup-contents">
+                <input type="password" name="password" placeholder="Enter your password" required>
+              </div>
+          </div>
+
+
+          <div class="terms-contents">
+              <p>By Clicking on register button you agree with the  <a href="#">Terms and Conditions</a>  and   <a href="#">Privacy Policy</a>  of our App.</p>
+          </div>
+
+          <div class="btn-signup">
+              <button type="submit" class="signup-btn">Register</button>
+          </div>
+
+          <div class="links-contents">
+              <p>Have an account?  <a href="/api/v2/admin/login">Login</a></p>
+              <a href="#">Forgot Password?</a>
+          </div>
+
+          <div class="social">
+              <div class="signup-sos">
+                  <strong>Or</strong>
+                  <span>Sign Up with social account:</span>
+              </div>
+
+              <div class="social-contents">
+                  <a href="" class="social-signup">
+                     <img src="/uploads/google.png" alt="">
+                  </a>
+                  <a href="" class="social-signup">
+                     <img src="/uploads/github.png" alt="">
+                  </a>
+              </div>
+          </div>
+          </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>
