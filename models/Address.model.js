@@ -32,6 +32,14 @@ const addressSchema = sequelize.define('Cart', {
     type: DataTypes.STRING,
     allowNul: false,
   },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'User',
+      key: 'id'
+    },
+  },
+  tablfNam: 'carts',
 }, { timestamps: true });
 
 const Address = addressSchema;

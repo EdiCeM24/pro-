@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/css/input.css">
+  <canvas id="orderChart"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <h1>Welcome to our <%= title %></h1>
@@ -56,5 +58,20 @@
       <button class="upload-btn">Sign Up</button>
     </form>
   </div> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const data = <%- JSON.stringify(statusCount) %>;
+
+    new Chart(document.getElementById('orderChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Processing', 'Shipped', 'Delivered'],
+        datasets: [{
+          label: 'Orders',
+          data: [data.processing, data.shipped, data.delivered]
+        }]
+      }
+    });
+  </script>
 </body>
 </html>

@@ -10,6 +10,8 @@ export const {
     DB_PASSWORD,
     DB_HOST,
     DB_PORT,
+    BAES_URL,
+    TERMII_API_KEY,
     EMAIL_USER,
     EMAIL_PASS,
     JWT_SECRET_KEY,

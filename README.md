@@ -1,53 +1,123 @@
-# E-Commerce API (Node.js + Express + PostgreSQL)
+# E-Commerce API (Node.js + Express + PostgreSQL + Sequelize)
 
-This is a full-featured e-commerce backend built with Node.js, Express, Sequelize, and PostgreSQL. It supports authentication, cart, orders, payments, admin dashboard, and more.
+# 🛒 E-Commerce API
 
-✅ A clean structure
-✅ A ready-to-use template
-✅ A well-documented codebase (GitHub-ready)
+### Node.js • Express • PostgreSQL • Sequelize
 
-📘 1. What Your README Should Include
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![Express](https://img.shields.io/badge/Express.js-Framework-black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Sequelize](https://img.shields.io/badge/Sequelize-ORM-lightgrey)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![License](https://img.shields.io/badge/License-MIT-brightgreen)
 
-For your Node.js e-commerce project:
+---
 
-Project title & description
-Features
-Tech stack
-Installation steps
-API endpoints
-Environment variables
-Screenshots (optional)
-Deployment link (if any)
-🧾 2. Full README.md Template (Copy & Use)
-Writing
-🛒 E-Commerce API (Node.js + Express + PostgreSQL)
+## 🚀 Overview
 
-A full-featured e-commerce backend built with Node.js, Express, Sequelize, and PostgreSQL.
-Supports authentication, cart, orders, payments, admin dashboard, and more.
+I built this project as a **full-featured e-commerce backend API** designed to simulate real-world online store operations.
 
-🚀 Features
-🔐 User Authentication (JWT)
-🛍️ Product Management (CRUD)
-📂 Categories
-🛒 Cart System
-❤️ Wishlist
-📦 Orders & Order Items
-💳 Payment Integration (Paystack)
-🚚 Delivery Tracking (processing, shipped, delivered)
-📍 Address & Delivery System
-📧 Email Notifications (Nodemailer)
-📱 SMS Notifications (Termii)
-🧑‍💼 Admin Dashboard (EJS)
-🧰 Tech Stack
-Backend: Node.js, Express.js
-Database: PostgreSQL
-ORM: Sequelize
-Authentication: JWT
-Email: Nodemailer
-SMS: Termii
-Payment: Paystack
-Templating: EJS
-📁 Project Structure
+It handles everything from **user authentication and product management** to **payments, delivery tracking, notifications, and admin analytics**.
+
+The architecture is designed to be:
+
+- Scalable
+- Modular
+- Production-ready
+
+---
+
+## ✨ Key Features
+
+### 🔐 Authentication & Authorization
+
+- JWT-based authentication
+- Role-based access control (Admin & User)
+
+### 🛍️ Product Management
+
+- Full CRUD operations
+- Categories system
+- Search & filtering (price, category)
+
+🧠 Advanced UI STRUCTURE:
+Views/
+|
+├── partials/
+│ ├── \_cart.ejs
+│ ├── \_checkout.ejs
+│ ├── \_footer.ejs
+│ ├── \_header.ejs
+│ ├── \_navbar.ejs
+│ └── \_sidebar.ejs
+├── admin/
+│ ├── dashboard.ejs
+│ ├── orders.ejs
+│ ├── products.ejs
+│ └── users.ejs
+├── cart.ejs
+├── checkout.ejs
+├── home.ejs
+├── login.ejs
+├── product.ejs
+├── register.ejs
+└── wishlist.ejs
+
+### 🛒 Shopping Experience
+
+- Cart system
+- Wishlist functionality
+
+### 📦 Orders & Checkout
+
+- Order creation from cart
+- Order items tracking
+- Delivery lifecycle:
+  - `processing → shipped → delivered`
+
+### 💳 Payments
+
+- Paystack integration
+- Payment verification flow
+
+### 🚚 Delivery System
+
+- Address management
+- Delivery fee calculation
+- GPS-based delivery zones
+
+### 📧 Notifications
+
+- HTML Email notifications (Nodemailer)
+- SMS alerts via Termii
+
+### 📊 Admin Dashboard (EJS)
+
+- Platform statistics
+- Order management
+- Delivery status updates
+- Chart-based analytics
+
+---
+
+## 🧰 Tech Stack
+
+| Layer    | Technology          |
+| -------- | ------------------- |
+| Backend  | Node.js, Express.js |
+| Database | PostgreSQL          |
+| ORM      | Sequelize           |
+| Auth     | JWT                 |
+| Payments | Paystack            |
+| Email    | Nodemailer          |
+| SMS      | Termii              |
+| Views    | EJS                 |
+
+---
+
+## 📁 Project Structure
+
+```bash id="dny3ea"
 ├── config/
 ├── controllers/
 ├── models/
@@ -55,21 +125,30 @@ Templating: EJS
 ├── middleware/
 ├── utils/
 ├── views/
+├── docs/          # Swagger docs
 ├── .env
 ├── app.js
 └── package.json
-⚙️ Installation
+```
 
-1. Clone Repository
-   git clone https://github.com/yourusername/ecommerce-api.git
-   cd ecommerce-api
-2. Install Dependencies
-   npm install
-3. Setup Environment Variables
+---
 
-Create a .env file:
+## ⚙️ Installation
 
-DB_NAME=your_db
+```bash id="08y9mt"
+git clone https://github.com/EdiCeM24/pro-.git
+cd pro-
+npm install
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file:
+
+```env id="rjqh2r"
+DB_NAME=ecommerce
 DB_USER=your_user
 DB_PASS=your_password
 DB_HOST=localhost
@@ -80,89 +159,148 @@ EMAIL_USER=your_email
 EMAIL_PASS=your_password
 
 PAYSTACK_SECRET_KEY=your_key
-TERMII_API_KEY=your_key 4. Run Server
+TERMII_API_KEY=your_key
+```
+
+---
+
+## ▶️ Run the App
+
+```bash id="gr9k6l"
 npm run dev
+```
 
-Server runs on:
+---
 
-http://localhost:3000
-🔑 API Endpoints
-Auth
-POST /api/auth/register
-POST /api/auth/login
-Products
-GET /api/products
-POST /api/products
-PUT /api/products/
-DELETE /api/products/
-Cart
-POST /api/cart/add
-GET /api/cart
-DELETE /api/cart/remove
-Orders
-POST /api/orders/checkout
-GET /api/orders
-Payment
-POST /api/payment/pay
-GET /api/payment/verify/
-📊 Admin Dashboard
+## 📚 API Documentation (Swagger)
 
-Accessible at:
+This project includes interactive API documentation using Swagger.
 
+### 📦 Install Swagger
+
+```bash id="zrr1xm"
+npm install swagger-ui-express swagger-jsdoc
+```
+
+---
+
+### ⚙️ Setup Swagger
+
+📁 `config/swagger.js`
+
+```js id="v8lqps"
+const swaggerJsdoc = require("swagger-jsdoc");
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "E-Commerce API",
+      version: "1.0.0",
+    },
+  },
+  apis: ["./routes/*.js"],
+};
+
+module.exports = swaggerJsdoc(options);
+```
+
+---
+
+📁 `app.js`
+
+```js id="v2a5e3"
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./config/swagger");
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+```
+
+---
+
+### ✍️ Swagger Route Docs
+
+```js id="6sxx7x"
+/**
+ * @swagger
+ * /api/products:
+ *   get:
+ *     summary: Get all products
+ *     responses:
+ *       200:
+ *         description: List of products
+ */
+```
+
+---
+
+### 🌐 Access Docs
+
+```id="z9bmbb"
+http://localhost:3000/api-docs
+```
+
+---
+
+## 📊 Admin Dashboard
+
+```id="j5m6bg"
 /admin/dashboard
+```
 
-Features:
+Includes:
 
-View stats (users, products, orders)
-Manage orders
-Update delivery status
-📸 Screenshots (Optional)
+- Platform stats
+- Order management
+- Delivery tracking
+- Charts (Chart.js)
 
-Add screenshots of your UI here
+---
 
-🌍 Deployment
+## 📸 Screenshots
 
-You can deploy using:
+> Add screenshots here (Admin dashboard, cart, etc.)
 
-Render
-Railway
-VPS (Ubuntu + Nginx)
-🧠 Future Improvements
-📦 Product image uploads (Cloudinary)
-📊 Advanced analytics dashboard
-📍 Real-time order tracking
-📱 Mobile app integration
-👨‍💻 Author
+---
 
-Your Name
-GitHub: https://github.com/yourusername
+## 🌍 Deployment
 
-📄 License
+- Render
+- Railway
+- VPS (Node.js + PostgreSQL)
 
-This project is licensed under the MIT License.
+---
 
-✨ 3. Pro Tips (Make It Stand Out)
-✅ Add badges (top of README)
-![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-✅ Add live demo (if deployed)
+## 🧠 What I Learned
 
-## 🌐 Live Demo
+- Designing scalable backend architecture
+- Managing relational data with Sequelize
+- Integrating real-world services (payments, SMS, email)
+- Building admin dashboards with server-side rendering
 
-https://your-app.onrender.com
-✅ Add screenshots (very important)
-Admin dashboard
-Product listing
-Cart
-✅ Keep it clean
-Use emojis (but not too many)
-Use sections
-Use code blocks
-🎯 Final Result
+---
 
-With this README, your project will look:
+## 🔮 Future Improvements
 
-✔ Professional
-✔ Recruiter-ready
-✔ Easy to understand
-✔ Easy to run
+- Product image uploads (Cloudinary)
+- Real-time order tracking
+- Mobile app integration
+- Advanced analytics dashboard
+
+---
+
+## 👨‍💻 Author
+
+MARCUS EDIDIONG CLETUS
+
+Developed as a production-style backend system to demonstrate real-world e-commerce architecture and integrations.
+
+---
+
+## 📄 License
+
+MIT License
+
+This is a full-featured e-commerce backend built with Node.js, Express, Sequelize, and PostgreSQL. It supports authentication, cart, orders, payments, admin dashboard, and more.
+
+✅![alt text](image.png)

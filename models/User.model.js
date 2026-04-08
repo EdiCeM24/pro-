@@ -57,6 +57,13 @@ const userSchema = sequelize.define("usertables", {
         },
         allowNull: false
     },
+    token: { 
+        type: DataTypes.STRING,
+        required: true,
+        unique: true,
+        default: null,
+        allowNull: false,
+    },
     password: {
         type: DataTypes.STRING,
         required: true,

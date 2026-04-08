@@ -72,8 +72,12 @@ const adminSchema = sequelize.define('admintable', {
   isAdmin: {
     type: DataTypes.BOOLEAN,
     required: true,
-    default: false,
+    default: true,
     allowNull: false,
+  },
+  role: {
+    type: DataTypes.STRING,
+    default: "admin",
   },
 }, {timestamps: true});
 

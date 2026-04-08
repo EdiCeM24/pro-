@@ -4,6 +4,8 @@ import path from 'path';
 import multer from 'multer';
 import { PORT } from './config/env.js';
 import sequelize from './database/dbConnect.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger.js';
 
 
 
@@ -13,6 +15,7 @@ import productsRouter from './routes/pro.route.js';
 import adminRouter from './routes/admin.route.js';
 import dashboardRouter from './routes/dashboard.route.js';
 import cateRoute from './routes/category.route.js';
+
 
 
 const app = express();
@@ -62,9 +65,10 @@ app.use('/api/v2/dash', dashboardRouter);
 app.use('/api/v2/category', cateRoute);
 //app.use('/api/v2/users', usersRoute);
 //app.use('/api/v2/pay', payRoute);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-sequelize.sync()
+sequelize.sync({ alter: true })
 .then(() => {
     console.log('Database synced!');
     app.listen(port, () => {

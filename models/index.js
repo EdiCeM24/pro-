@@ -12,8 +12,8 @@ import Address from "./Address.model.js";
 
 // RELATIONSHIPS
 // CART
-User.hasOne(Cart, {});
-Cart.belongsTo(User, {});
+User.hasOne(Cart, { foreignKey: 'userId' });
+Cart.belongsTo(User, { foreignKey: 'userId' });
 
 // 
 User.hasMany(Order, { foreignKey: 'userId' });
@@ -31,14 +31,14 @@ Order.belongsToMany(Product, { through: OrderItem });
 Product.belongsToMany(Order, { through: OrderItem });
 
 // WISHLIST
-User.hasMany(Wishlist);
-Wishlist.belongsTo(User);
+User.hasMany(WishList, { foreignKey: 'userId' });
+WishList.belongsTo(User, { foreignKey: 'userId' });
 
-Wishlist.belongsToMany(Product, { through: 'WishlistItems' });
+WishList.belongsToMany(Product, { through: 'WishlistItems' });
 
 module.exports = {
   User, Product, Cart, CartItem,
-  Order, OrderItem, WishList
+  Order, OrderItem, WishList, Address
 };  
 
 // One category → many products
@@ -46,6 +46,8 @@ Category.hasMany(Product, { foreignKey: 'categoryId' });
 Product.belongsTo(Category, { foreignKey: 'categoryId' });
 
 // USER ADDRESS RELATIONSHIP
-User.hasMany(Address, {foreignKey: ""});
-Address.belongsTo(User, {foreignKey: ""});
+User.hasMany(Address, {foreignKey: "userId"});
+Address.belongsTo(User, {foreignKey: "userId"});
 
+
+export { User, Product, Order, OrderItem, Cart, CartItem, WishList, Address };
