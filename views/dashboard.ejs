@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/input.css">
+</head>
+<body>
+  <h1>Welcome to our <%= title %></h1>
+
+  <strong class="headings"> </strong>
+
+  <h1>Admin Dashboard</h1>
+
+  <p>Total Users: <%= users %></p>
+  <p>Total Products: <%= products %></p>
+  <p>Total Orders: <%= orders %></p>
+
+  <a href="/admin/orders">View Orders</a>
+
+
+  <div class="form-div">
+    <h2>Order Status Chart</h2>
+
+    <canvas id="orderChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const data = <%- JSON.stringify(statusCount) %>;
+
+      new Chart(document.getElementById('orderChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Processing', 'Shipped', 'Delivered'],
+          datasets: [{
+            label: 'Orders',
+            data: [
+              data.processing,
+              data.shipped,
+              data.delivered
+            ]
+          }]
+        }
+      });
+    </script>
+  </div>
+
+
+
+  <!-- <div class="form-div">
+    <form action="/public/uploads" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" id="image" placeholder="No file chosen">
+
+      <button class="upload-btn">Sign Up</button>
+    </form>
+  </div> -->
+</body>
+</html>

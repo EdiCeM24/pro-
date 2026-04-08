@@ -126,7 +126,7 @@ const signIn = async (req, res) => {
     };
 
     if (user && (await bcryptSalt.compare(password, user.hashedPassword))) {
-      const token = jwt.sign({ id: user._id, email}, JWT_SECRET_KEY, {
+      const token = jwt.sign({ id: user._id, email, role: user.role }, JWT_SECRET_KEY, {
         expiresIn: JWT_EXPIRES_IN,
       })
 

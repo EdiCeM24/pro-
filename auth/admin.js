@@ -7,8 +7,8 @@ async function isAdmin(req, res, next) {
 
     const user = await Admin.findOne({ isAdmin });
 
-    if (req.user && req.user.isAdmin.role === "admin" && user._id) {
-      next();
+    if (req.user && req.user.isAdmin.role === "admin" && user.id) {
+      return next();
     } else {
       res.redirect("/login", {
         message: "You are not authorized to access this page! Admin privileges required."});

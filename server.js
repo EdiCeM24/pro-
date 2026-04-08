@@ -3,8 +3,8 @@ import cors from 'cors';
 import path from 'path';
 import multer from 'multer';
 import { PORT } from './config/env.js';
-// import sequelize from './database/dbConnect.js';
-//import {connectDatabase} from "./database/dbConnect.js";
+import sequelize from './database/dbConnect.js';
+
 
 
 // IMPORT ROUTES
@@ -12,9 +12,11 @@ import authRoute from'./routes/auth.route.js';
 import productsRouter from './routes/pro.route.js';
 import adminRouter from './routes/admin.route.js';
 import dashboardRouter from './routes/dashboard.route.js';
+import cateRoute from './routes/category.route.js';
 
 
 const app = express();
+const port = PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
@@ -56,15 +58,20 @@ app.get('/home', (req, res) => {
 app.use('/api/v2/auth', authRoute);
 app.use('/api/v2/product', productsRouter);
 app.use('/api/v2/admin', adminRouter);
-app.use('/api/v2/dash', dashboardRouter)
+app.use('/api/v2/dash', dashboardRouter);
+app.use('/api/v2/category', cateRoute);
 //app.use('/api/v2/users', usersRoute);
 //app.use('/api/v2/pay', payRoute);
 
 
-
-app.listen(PORT, () => {
-    // connectDatabase();
-   console.log(`Server running on port localhost:${PORT}`);
-});
+sequelize.sync()
+.then(() => {
+    console.log('Database synced!');
+    app.listen(port, () => {
+       console.log(`Server running on port localhost:${port}`);
+    });
+}).catch((err) => {
+    console.error(`Error syncing database: ${err}`);
+})
 
 // export default server;

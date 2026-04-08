@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Orders</h1>
+
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+
+    <% orders.forEach(order => { %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.User.email %></td>
+        <td><%= order.total %></td>
+        <td><%= order.status %></td>
+        <td>
+          <form method="POST" action="/admin/orders/<%= order.id %>?_method=PUT">
+            <select name="status">
+              <option>processing</option>
+              <option>shipped</option>
+              <option>delivered</option>
+            </select>
+            <button type="submit">Update</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

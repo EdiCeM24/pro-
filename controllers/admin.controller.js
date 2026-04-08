@@ -6,6 +6,10 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import path from "path";
 import multer from "multer";
+import User from "../models/User.model.js";
+import Product from "../models/pro.model.js";
+import Order from "../models/Order.model.js";
+
 
 
 const app = express();
@@ -72,7 +76,7 @@ const adminRegister = async (req, res) => {
       res.status(400).json({ message: "All fields are required!" })
     };
 
-    const existingUser = await Admin.findOne({ email });
+    const existingUser = await Admin.findOne({ where: { email } });
     
     if (existingUser) {
       return res.status(409).json({message: 'User email address already exist.'});
@@ -96,7 +100,7 @@ const adminRegister = async (req, res) => {
       }
     });
 
-    const accessToken = jwt.sign({id: newAdmin._id, email}, JWT_SECRET_KEY, {
+    const accessToken = jwt.sign({id: newAdmin.id, email}, JWT_SECRET_KEY, {
       expiresIn: JWT_EXPIRES_IN
     });
 
@@ -121,14 +125,14 @@ const adminSignin = async (req, res) => {
       res.status(400).json({ message: "All fields are required!" })
     };
 
-    const admin = await Admin.findOne({ email });
+    const admin = await Admin.findOne({ where: { email } });
 
     if (!admin) {
       return res.status(401).json({ message: "Invalid email or password!" });
     }
 
     if (admin && (await bcryptSalt.compare(password, admin.password))) {
-      const accessToken = jwt.sign({id: admin._id, email}, JWT_SECRET_KEY, {
+      const accessToken = jwt.sign({id: admin.id, email}, JWT_SECRET_KEY, {
         expiresIn: JWT_EXPIRES_IN
       });
 
@@ -162,6 +166,64 @@ const adminSignin = async (req, res) => {
 };
 
 
+// DASHBOARD STATS
+const getDashboard = async (req, res) => {
+  const users = await User.count();
+  const products = await Product.count();
+  const orders = await Order.count();
+
+  // const orders = await Order.findAll();
+
+  const statusCount = {
+    processing: 0,
+    shipped: 0,
+    delivered: 0
+  };
+
+  orders.forEach(order => {
+    statusCount[order.status]++;
+  });
+
+  res.render('dashboard', {
+    users,
+    products,
+    orders,
+    statusCount
+  });
+};
+
+
+const ordersPage = async (req, res) => {
+  const orders = await Order.findAll({
+    include: ['User']
+  });
+
+  res.render('orders', { orders });
+};
+
+
+// GET ALL ORDERS
+const getAllOrders = async (req, res) => {
+  const orders = await Order.findAll({
+    include: ['User']
+  });
+
+  res.json(orders);
+};
+
+
+// UPDATE ORDER STATUS
+const updateOrderStatus = async (req, res) => {
+  const { status } = req.body;
+
+  const order = await Order.findByPk(req.params.id);
+
+  await order.update({ status });
+
+  res.json(order);
+};
+
+
 const adminSignOut = async (req, res) => {};
 
 // The TWO below will be hidden from admin so as not to change his or her credentials and give fake:
@@ -171,4 +233,4 @@ const adminDelete = async (req, res) => {};
 
 
 
-export { adminSignup, adminLogin, adminRegister, adminSignin, adminSignOut, adminUpdate, adminDelete }
+export { adminSignup, adminLogin, adminRegister, adminSignin, getDashboard, getAllOrders, ordersPage, updateOrderStatus, adminSignOut, adminUpdate, adminDelete }

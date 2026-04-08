@@ -1,46 +1,83 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
+import sequelize from "../database/dbConnect.js";
 
 
-const AdminSchema = new mongoose.Schema({
+const adminSchema = sequelize.define('admintable', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
   firstName: {
-    type: String,
+    type: DataTypes.STRING,
+    required: true,
+    trim: true,
+    allowNull: false,
   },
   surName: {
-    type: String,
+     type: DataTypes.STRING,
+    required: true,
+    trim: true,
+    allowNull: false,
   },
   username: {
-    type: String,
+     type: DataTypes.STRING,
+    required: true,
+    trim: true,
+    allowNull: false,
   },
   email: {
-    type: String,
+    type: DataTypes.STRING,
+    required: true,
+    unique: true,
+    trim: true,
+    allowNull: false,
   },
   profile: {
-    type: String,
+    type: DataTypes.BLOB,
     required: true,
-    unique: true
+    unique: true,
+    allowNull: false,
   },
   mobile: {
-    type: String,
+    type: DataTypes.STRING,
     required: true,
     unique: true,
     minLength: [14, 'User mobile number must be at lease 14 digits.'],
     maxLength: [16, 'User mobile number must not exceed 16 digits.'],
+    unique: true, // Prevents duplicate phone numbers
+      validate: {
+      // Basic validation: ensure it's 10-15 digits
+      len: [10, 15], 
+      // Ensure only digits, '+', '(', ')', and '-' are allowed
+      // is: /^[0-9+()-\s]+$/i,
+      // Optional: Custom validation for E.164 format (e.g., +1234567890)
+      is: /^\+[1-9]\d{1,15}$/ 
+    },
+    allowNull: false,
   },
   password: {
-    type: String,
+    type: DataTypes.STRING,
+    required: true,
+    allowNull: false,
   },
   token: { 
-    type: String,
+    type: DataTypes.STRING,
     required: true,
     unique: true,
     default: null,
+    allowNull: false,
   },
   isAdmin: {
-    type: Boolean,
+    type: DataTypes.BOOLEAN,
+    required: true,
     default: false,
+    allowNull: false,
   },
 }, {timestamps: true});
 
-const Admin = mongoose.model("Admin", AdminSchema);
+const Admin = adminSchema;
 
 export default Admin;
+

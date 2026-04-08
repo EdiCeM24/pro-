@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config/env.js';
+import { JWT_SECRET_KEY } from '../config/env.js';
 import User from '../models/User.model.js';
 
 
@@ -13,13 +13,13 @@ const authorize = (req, res, next) => {
   }
   try {
     // decode that token and get id
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
     console.log(decoded);
-    req.user = decoded;
 
     // Query to DB for that user id
-    const user = User.findById(decoded.id);
+    const user = User.findByPk(decoded.id);
     console.log(user);
+    req.user = decoded;
     return next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token' });

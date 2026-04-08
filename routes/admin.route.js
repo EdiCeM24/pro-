@@ -1,10 +1,13 @@
 import express from "express";
-import { adminDelete, adminLogin, adminRegister, adminSignOut, adminSignin, adminSignup, adminUpdate, } from "../controllers/admin.controller.js";
+import { adminDelete, adminLogin, adminRegister, adminSignOut, adminSignin, adminSignup, adminUpdate, getAllOrders, getDashboard, updateOrderStatus, } from "../controllers/admin.controller.js";
 import { dashboard, adminDashboard } from "../controllers/dashboard.controller.js";
 import isAdmin from "../auth/admin.js";
 import authorize from "../middlewares/authorize.js";
+import productsRouter from "./pro.route.js";
+import { products } from "../controllers/pro.controller.js";
 
 const adminRouter = express.Router();
+
 
 // GET --> Display Admin Dashboard
 adminRouter.get("/", authorize, isAdmin, adminDashboard);
@@ -18,8 +21,17 @@ adminRouter.post("/register", adminRegister);
 // GET --> Login
 adminRouter.get("/login", authorize, isAdmin, adminLogin);
 
+// CREATE PRODUCTS -- POST
+productsRouter.post("/products", products);
+
 // POST --> SignIn
 adminRouter.post("/sign-in", adminSignin);
+
+adminRouter.get('/dashboard', authorize, isAdmin, getDashboard); // TO CROSS CHECK WITH THE UP ONE
+
+adminRouter.get('/orders', authorize, isAdmin, getAllOrders);
+
+adminRouter.put('/orders/:id', authorize, isAdmin, updateOrderStatus);
 
 // POST --> SignOut
 adminRouter.post("/sign-out", adminSignOut);
